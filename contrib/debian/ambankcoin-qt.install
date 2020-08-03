@@ -1,0 +1,6 @@
+usr/local/bin/ambankcoin-qt usr/bin
+share/pixmaps/ambankcoin32.xpm usr/share/pixmaps
+share/pixmaps/ambankcoin16.xpm usr/share/pixmaps
+share/pixmaps/ambankcoin128.png usr/share/pixmaps
+debian/ambankcoin-qt.desktop usr/share/applications
+debian/ambankcoin-qt.protocol usr/share/kde4/services/

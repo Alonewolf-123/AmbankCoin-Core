@@ -1,0 +1,8 @@
+include_HEADERS += include/secp256k1_ambkh.h
+noinst_HEADERS += src/modules/ambkh/main_impl.h
+noinst_HEADERS += src/modules/ambkh/tests_impl.h
+if USE_BENCHMARK
+noinst_PROGRAMS += bench_ambkh
+bench_ambkh_SOURCES = src/bench_ambkh.c
+bench_ambkh_LDADD = libsecp256k1.la $(SECP_LIBS) $(COMMON_LIB)
+endif

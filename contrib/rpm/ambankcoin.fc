@@ -1,0 +1,8 @@
+/usr/bin/ambankcoin-cli		--	gen_context(system_u:object_r:ambankcoin_exec_t,s0)
+/usr/sbin/ambankcoind		--	gen_context(system_u:object_r:ambankcoin_exec_t,s0)
+/usr/lib(64)?/ambankcoin/ambankcoind		--	gen_context(system_u:object_r:ambankcoin_exec_t,s0)
+
+/etc/ambankcoin(/.*)?		gen_context(system_u:object_r:ambankcoin_conf_t,s0)
+/var/lib/ambankcoin(/.*)?		gen_context(system_u:object_r:ambankcoin_var_lib_t,s0)
+
+(/var)?/run/ambankcoind(/.*)?   gen_context(system_u:object_r:ambankcoin_var_run_t,s0)

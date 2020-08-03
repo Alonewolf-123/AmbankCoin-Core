@@ -1,0 +1,157 @@
+
+## <summary>policy for ambankcoin</summary>
+
+
+########################################
+## <summary>
+##	Transition to ambankcoin.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`ambankcoin_domtrans',`
+	gen_require(`
+		type ambankcoin_t, ambankcoin_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, ambankcoin_exec_t, ambankcoin_t)
+')
+
+
+########################################
+## <summary>
+##	Execute ambankcoin server in the ambankcoin domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`ambankcoin_initrc_domtrans',`
+	gen_require(`
+		type ambankcoin_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, ambankcoin_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search ambankcoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`ambankcoin_search_lib',`
+	gen_require(`
+		type ambankcoin_var_lib_t;
+	')
+
+	allow $1 ambankcoin_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read ambankcoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`ambankcoin_read_lib_files',`
+	gen_require(`
+		type ambankcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, ambankcoin_var_lib_t, ambankcoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage ambankcoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`ambankcoin_manage_lib_files',`
+	gen_require(`
+		type ambankcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, ambankcoin_var_lib_t, ambankcoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage ambankcoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`ambankcoin_manage_lib_dirs',`
+	gen_require(`
+		type ambankcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, ambankcoin_var_lib_t, ambankcoin_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a ambankcoin environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`ambankcoin_admin',`
+	gen_require(`
+		type ambankcoin_t;
+		type ambankcoin_initrc_exec_t;
+		type ambankcoin_var_lib_t;
+	')
+
+	allow $1 ambankcoin_t:process { ptrace signal_perms };
+	ps_process_pattern($1, ambankcoin_t)
+
+	ambankcoin_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 ambankcoin_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, ambankcoin_var_lib_t)
+
+')
+

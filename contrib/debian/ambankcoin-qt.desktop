@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=AMBANKCOIN Core
+Comment=AMBANKCOIN P2P Cryptocurrency
+Comment[fr]=AMBANKCOIN, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=AMBANKCOIN, eşten eşe kriptografik sanal para birimi
+Exec=ambankcoin-qt %u
+Terminal=false
+Type=Application
+Icon=ambankcoin128
+MimeType=x-scheme-handler/ambankcoin;
+Categories=Office;Finance;
+StartupWMClass=AmbankCoin-qt
